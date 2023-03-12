@@ -23,8 +23,17 @@
         import { easter, gregorianEaster, julianEaster, orthodoxEaster } from "./node_modules/date-easter/src/index.js";
 
         let now = new Date();
-        let easter_sunday = new Date(easter(now));
-        let ash_wednesday = new Date(easter_sunday - 46 * 24 * 60 * 60 * 1000);
+        let easter_sunday_str = easter(now).toString();
+
+        // Use 00:00 UTC times to determine date of ash wednesday
+        let easter_sunday_utc = new Date(easter_sunday_str);
+        let ash_wednesday_utc = new Date(easter_sunday_utc - 46 * 24 * 60 * 60 * 1000);
+
+        // Create Date objects that correspond to 00:00 local time
+        let easter_sunday = new Date(easter_sunday_str + "T00:00:00");
+        let ash_wednesday = new Date(ash_wednesday_utc.getUTCFullYear(),
+                                     ash_wednesday_utc.getUTCMonth(),
+                                     ash_wednesday_utc.getUTCDate());
 
         let total = (easter_sunday - ash_wednesday);
         let current = (now - ash_wednesday);
