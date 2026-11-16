@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "bootstrap": "^5.3.8",
+    "bootstrap": "^5.3.9",
     "date-easter": "^1.1.0"
   }
 }
